@@ -1,12 +1,34 @@
--- Just an example, supposed to be placed in /lua/custom/
-
 local M = {}
 
--- make sure you maintain the structure of `core/default_config.lua` here,
--- example of changing theme:
+local override = require "custom.override"
+
+M.options = {
+  user = function()
+    require("custom.options")
+  end,
+}
+
+M.plugins = {
+  options = {
+    statusline = {
+       separator_style = "round",
+    }
+  },
+
+  user = require "custom.plugins",
+ 
+  override = {
+    ["lukas-reineke/indent-blankline.nvim"] = override.blankline,
+  }
+}
 
 M.ui = {
-  theme = "tokyonight",
+  theme = "tokyodark",
+  -- theme = "onedark",
+  -- theme = "scaceduck",
+  -- hl_override = require "custom.highlights",
 }
+
+M.mappings = require "custom.mappings"
 
 return M
